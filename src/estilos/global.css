@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html, body, #raiz { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--fonte-app);
+    font-size: calc(15px * var(--escala));
+    background: rgb(var(--c-fundo));
+    color: rgb(var(--c-texto));
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden; /* a janela do app não rola; cada painel rola por dentro */
+    user-select: none;
+  }
+  /* Texto selecionável só onde faz sentido (logs, caixas de código) */
+  .selecionavel, input, textarea { user-select: text; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-borda));
+    border-radius: 99px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-suave) / 0.6); background-clip: content-box; }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-destaque));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Efeito "vidro" dos cartões do cockpit */
+  .vidro {
+    background: linear-gradient(180deg, rgb(var(--c-elevado) / 0.9), rgb(var(--c-superficie) / 0.92));
+    border: 1px solid rgb(var(--c-borda) / 0.8);
+    border-radius: var(--raio);
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 18px 46px -24px rgb(0 0 0 / 0.65);
+    backdrop-filter: blur(8px);
+  }
+  .cartao {
+    background: rgb(var(--c-superficie));
+    border: 1px solid rgb(var(--c-borda) / 0.7);
+    border-radius: var(--raio);
+  }
+  .botao {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: calc(0.55rem * var(--densidade)) calc(1rem * var(--densidade));
+    border-radius: 10px; font-weight: 600; font-size: 0.92em;
+    border: 1px solid rgb(var(--c-borda)); color: rgb(var(--c-texto));
+    background: rgb(var(--c-elevado)); cursor: pointer;
+    transition: transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .botao:hover { background: rgb(var(--c-borda) / 0.5); }
+  .botao:active { transform: translateY(1px); }
+  .botao:disabled { opacity: .5; cursor: not-allowed; }
+  .botao-primario {
+    border: none; color: rgb(var(--c-sobre-destaque));
+    background: linear-gradient(135deg, rgb(var(--c-destaque)), rgb(var(--c-destaque2)));
+    box-shadow: 0 8px 24px -10px rgb(var(--c-destaque) / 0.7);
+  }
+  .botao-primario:hover { filter: brightness(1.07); background: linear-gradient(135deg, rgb(var(--c-destaque)), rgb(var(--c-destaque2))); }
+  .botao-perigo { border-color: rgb(var(--c-vermelho) / 0.5); color: rgb(var(--c-vermelho)); }
+  .botao-perigo:hover { background: rgb(var(--c-vermelho) / 0.12); }
+
+  .selo { display:inline-flex; align-items:center; gap:.35rem; padding:.15rem .55rem; border-radius:99px; font-size:.72em; font-weight:700; }
+  .selo-verde { background: rgb(var(--c-verde) / .16); color: rgb(var(--c-verde)); }
+  .selo-amarelo { background: rgb(var(--c-amarelo) / .16); color: rgb(var(--c-amarelo)); }
+  .selo-vermelho { background: rgb(var(--c-vermelho) / .16); color: rgb(var(--c-vermelho)); }
+
+  /* Skeleton loading */
+  .esqueleto {
+    background: linear-gradient(90deg, rgb(var(--c-borda) / .25) 25%, rgb(var(--c-borda) / .5) 37%, rgb(var(--c-borda) / .25) 63%);
+    background-size: 400% 100%;
+    animation: esqueleto 1.6s linear infinite;
+    border-radius: 8px;
+  }
+  @keyframes esqueleto { 0%{background-position:100% 0} 100%{background-position:0 0} }
+}

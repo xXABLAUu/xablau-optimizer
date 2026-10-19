@@ -1,0 +1,21 @@
+[package]
+name = "xablau-restaurar"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Kit de emergência Xablau — Restaurar tudo: desfaz alterações sem a interface, funciona no Modo de Segurança"
+publish = false
+
+[[bin]]
+name = "xablau-restaurar"
+path = "src/main.rs"
+
+[dependencies]
+xablau-core = { workspace = true }
+chrono = { workspace = true }
+windows-sys = { workspace = true }
+
+[build-dependencies]
+embed-resource = "3"

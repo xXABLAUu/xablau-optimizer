@@ -1,0 +1,89 @@
+{
+  "$comentario": "Alimenta a tela 'O que há de novo'. A versão mais nova fica SEMPRE em primeiro lugar. Veja REGRAS_PARA_IA.md.",
+  "versoes": [
+    {
+      "versao": "1.0.0",
+      "data": "2026-10-18",
+      "titulo": "Lançamento inicial",
+      "destaques": [
+        "Tudo reversível: ponto de restauração, backup granular e diário de transações antes de qualquer alteração.",
+        "Perfis por aplicativo que tiram o Modo de Eficiência do CapCut e dos jogos automaticamente.",
+        "Modo Básico para quem é leigo e Modo Avançado com todas as funções.",
+        "Kit de emergência 'Xablau — Restaurar tudo', que funciona até no Modo de Segurança."
+      ],
+      "novidades": [
+        {
+          "area": "Início",
+          "itens": [
+            "Medidor animado de saúde do sistema.",
+            "Otimizar com um clique (perfil Seguro) e Modo Turbo.",
+            "Temperaturas e uso em tempo real."
+          ]
+        },
+        {
+          "area": "Diagnóstico",
+          "itens": [
+            "Verificações de BIOS (DOCP/XMP, Resizable BAR, Integridade de Memória, Inicialização Segura e virtualização).",
+            "Latência DPC estimada e TRIM.",
+            "Monitor de culpados (CPU, disco, RAM e rede por processo).",
+            "Relatório de travamentos explicado em português.",
+            "Histórico de desempenho e detector de vazamento de memória.",
+            "Comparativo antes/depois e FPS/frametime com o PresentMon.",
+            "Saúde dos SSDs com validação de dados não confiáveis.",
+            "Ficha do PC para WhatsApp e fóruns, sem dados pessoais."
+          ]
+        },
+        {
+          "area": "Desempenho",
+          "itens": [
+            "Plano Desempenho Máximo, núcleos, Modo de Jogo e agendamento de GPU.",
+            "Economias ocultas (USB, PCIe, placa de rede) e aceleração do mouse.",
+            "Liberação de memória em espera por botão manual.",
+            "Perfis por aplicativo com remoção automática do Modo de Eficiência.",
+            "CPU Sets por CCD, afinidade, prioridade de E/S e de memória.",
+            "IdleSaver e regras Watchdog (Modo Avançado).",
+            "Ajustes recomendados da NVIDIA guiados."
+          ]
+        },
+        {
+          "area": "Limpeza",
+          "itens": [
+            "Limpeza segura de temporários, Windows Update, componentes e drivers antigos.",
+            "Limpeza de launchers e apps só em pastas de cache conhecidas.",
+            "Analisador de espaço e duplicados (vão para a Lixeira).",
+            "SFC e DISM.",
+            "Privacidade com semáforo, remoção de apps pré-instalados e editor do hosts."
+          ]
+        },
+        {
+          "area": "Sistema",
+          "itens": [
+            "Serviços (Seguro e Agressivo), inicialização com atraso e recursos opcionais.",
+            "Drivers com download híbrido e três modos para a placa de vídeo.",
+            "Atualizador via winget, instalação em lote e desinstalador completo.",
+            "Windows Update, DNS, rede por programa, firewall por app e reparos.",
+            "Ajustes do Explorer e da barra de tarefas."
+          ]
+        },
+        {
+          "area": "Segurança",
+          "itens": [
+            "Pontos de restauração, desfazer tudo ou item a item e histórico com data.",
+            "Recuperação de operação interrompida.",
+            "Kit de emergência separado do programa."
+          ]
+        },
+        {
+          "area": "Configurações",
+          "itens": [
+            "10 temas, editor de tema, fontes, tamanho do texto e reduzir animações.",
+            "Iniciar com o Windows, bandeja, manutenção no ocioso e modo portátil.",
+            "Atualização automática com assinatura verificada.",
+            "Créditos, versão e licenças."
+          ]
+        }
+      ],
+      "correcoes": []
+    }
+  ]
+}

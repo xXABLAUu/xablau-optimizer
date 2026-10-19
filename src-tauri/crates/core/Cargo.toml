@@ -1,0 +1,22 @@
+[package]
+name = "xablau-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Núcleo compartilhado do Xablau Optimizer: diário de transações, backups, desfazer, processos e energia"
+publish = false
+
+[lib]
+name = "xablau_core"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+
+[target.'cfg(windows)'.dependencies]
+winreg = { workspace = true }
+windows-sys = { workspace = true }

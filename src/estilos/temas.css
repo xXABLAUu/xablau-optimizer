@@ -1,0 +1,206 @@
+/* Xablau Optimizer — sistema de temas.
+   Cada tema define as variáveis --c-* (canais RGB "r g b", para o Tailwind usar com /alpha).
+   Troca de tema: atributo data-tema no <html>. Fonte e tamanho: variáveis --fonte-app / --escala. */
+
+:root {
+  --fonte-app: 'Inter Variable', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  --escala: 1;
+  --raio: 14px;
+  --densidade: 1; /* 0.85 = compacto, 1 = normal, 1.15 = espaçoso */
+
+  /* Tema padrão: Escuro (cockpit roxo/ciano) */
+  --c-fundo: 13 12 22;
+  --c-superficie: 22 21 36;
+  --c-elevado: 30 29 48;
+  --c-borda: 52 50 78;
+  --c-texto: 236 234 248;
+  --c-suave: 156 152 184;
+  --c-destaque: 167 92 246;      /* roxo Xablau */
+  --c-destaque2: 34 211 238;     /* ciano */
+  --c-sobre-destaque: 255 255 255;
+  --c-verde: 52 211 153;
+  --c-amarelo: 251 191 36;
+  --c-vermelho: 248 113 113;
+  --c-azul: 96 165 250;
+  color-scheme: dark;
+}
+
+/* Claro */
+:root[data-tema="claro"] {
+  --c-fundo: 244 244 250;
+  --c-superficie: 255 255 255;
+  --c-elevado: 248 247 253;
+  --c-borda: 224 222 236;
+  --c-texto: 28 27 42;
+  --c-suave: 110 106 136;
+  --c-destaque: 124 58 237;
+  --c-destaque2: 8 145 178;
+  --c-sobre-destaque: 255 255 255;
+  --c-verde: 16 163 110;
+  --c-amarelo: 202 138 4;
+  --c-vermelho: 220 38 38;
+  --c-azul: 37 99 235;
+  color-scheme: light;
+}
+
+/* AMOLED (preto puro, economia em telas OLED) */
+:root[data-tema="amoled"] {
+  --c-fundo: 0 0 0;
+  --c-superficie: 10 10 14;
+  --c-elevado: 18 18 24;
+  --c-borda: 38 38 48;
+  --c-texto: 240 240 246;
+  --c-suave: 150 150 164;
+  --c-destaque: 180 110 255;
+  --c-destaque2: 40 220 240;
+  --c-sobre-destaque: 0 0 0;
+  --c-verde: 48 220 150;
+  --c-amarelo: 250 200 40;
+  --c-vermelho: 255 90 90;
+  --c-azul: 90 170 255;
+  color-scheme: dark;
+}
+
+/* Neon (cyberpunk) */
+:root[data-tema="neon"] {
+  --c-fundo: 11 8 24;
+  --c-superficie: 20 14 40;
+  --c-elevado: 30 20 56;
+  --c-borda: 70 40 110;
+  --c-texto: 240 230 255;
+  --c-suave: 180 150 220;
+  --c-destaque: 244 63 180;      /* magenta neon */
+  --c-destaque2: 56 240 220;     /* ciano neon */
+  --c-sobre-destaque: 12 6 20;
+  --c-verde: 57 255 170;
+  --c-amarelo: 255 221 51;
+  --c-vermelho: 255 77 109;
+  --c-azul: 92 148 255;
+  color-scheme: dark;
+}
+
+/* Oceano */
+:root[data-tema="oceano"] {
+  --c-fundo: 8 20 32;
+  --c-superficie: 13 30 46;
+  --c-elevado: 18 40 60;
+  --c-borda: 34 62 86;
+  --c-texto: 226 240 250;
+  --c-suave: 140 170 194;
+  --c-destaque: 45 212 191;      /* turquesa */
+  --c-destaque2: 56 189 248;
+  --c-sobre-destaque: 4 18 28;
+  --c-verde: 52 211 153;
+  --c-amarelo: 250 204 21;
+  --c-vermelho: 248 113 113;
+  --c-azul: 56 189 248;
+  color-scheme: dark;
+}
+
+/* Floresta */
+:root[data-tema="floresta"] {
+  --c-fundo: 12 22 16;
+  --c-superficie: 18 32 24;
+  --c-elevado: 24 44 32;
+  --c-borda: 42 68 50;
+  --c-texto: 228 242 230;
+  --c-suave: 148 178 156;
+  --c-destaque: 74 222 128;
+  --c-destaque2: 163 230 53;
+  --c-sobre-destaque: 6 16 10;
+  --c-verde: 74 222 128;
+  --c-amarelo: 234 179 8;
+  --c-vermelho: 239 108 108;
+  --c-azul: 56 189 248;
+  color-scheme: dark;
+}
+
+/* Pôr do sol */
+:root[data-tema="por-do-sol"] {
+  --c-fundo: 26 14 20;
+  --c-superficie: 40 20 28;
+  --c-elevado: 54 28 36;
+  --c-borda: 86 46 54;
+  --c-texto: 252 236 232;
+  --c-suave: 206 158 150;
+  --c-destaque: 251 146 60;      /* laranja */
+  --c-destaque2: 244 114 182;    /* rosa */
+  --c-sobre-destaque: 30 12 10;
+  --c-verde: 134 210 120;
+  --c-amarelo: 251 191 36;
+  --c-vermelho: 248 113 113;
+  --c-azul: 129 140 248;
+  color-scheme: dark;
+}
+
+/* Grafite (cinza neutro) */
+:root[data-tema="grafite"] {
+  --c-fundo: 18 18 20;
+  --c-superficie: 26 26 29;
+  --c-elevado: 34 34 38;
+  --c-borda: 52 52 58;
+  --c-texto: 232 232 236;
+  --c-suave: 152 152 160;
+  --c-destaque: 148 163 184;
+  --c-destaque2: 203 213 225;
+  --c-sobre-destaque: 18 18 20;
+  --c-verde: 52 211 153;
+  --c-amarelo: 234 179 8;
+  --c-vermelho: 248 113 113;
+  --c-azul: 96 165 250;
+  color-scheme: dark;
+}
+
+/* Roxo Xablau (assinatura, mais saturado) */
+:root[data-tema="roxo-xablau"] {
+  --c-fundo: 20 10 34;
+  --c-superficie: 32 16 54;
+  --c-elevado: 44 22 74;
+  --c-borda: 78 44 124;
+  --c-texto: 242 232 255;
+  --c-suave: 186 158 224;
+  --c-destaque: 192 132 252;
+  --c-destaque2: 232 121 249;
+  --c-sobre-destaque: 24 10 36;
+  --c-verde: 94 234 180;
+  --c-amarelo: 250 204 21;
+  --c-vermelho: 251 113 133;
+  --c-azul: 129 140 248;
+  color-scheme: dark;
+}
+
+/* Alto contraste (acessibilidade) */
+:root[data-tema="alto-contraste"] {
+  --c-fundo: 0 0 0;
+  --c-superficie: 0 0 0;
+  --c-elevado: 16 16 16;
+  --c-borda: 255 255 255;
+  --c-texto: 255 255 255;
+  --c-suave: 230 230 230;
+  --c-destaque: 255 234 0;       /* amarelo forte */
+  --c-destaque2: 0 229 255;
+  --c-sobre-destaque: 0 0 0;
+  --c-verde: 0 255 128;
+  --c-amarelo: 255 234 0;
+  --c-vermelho: 255 80 80;
+  --c-azul: 80 180 255;
+  color-scheme: dark;
+}
+
+/* "Reduzir animações": respeita a preferência do sistema e a opção do app. */
+:root[data-animacoes="reduzidas"] *,
+:root[data-animacoes="reduzidas"] *::before,
+:root[data-animacoes="reduzidas"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-animacoes="normais"]) *,
+  :root:not([data-animacoes="normais"]) *::before,
+  :root:not([data-animacoes="normais"]) *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,825 @@
+{
+  "$comentario": "Catálogo de ajustes do Xablau Optimizer. Cada ajuste é seguro e reversível. Veja REGRAS_PARA_IA.md para adicionar novos.",
+  "versao_catalogo": 1,
+  "ajustes": [
+    {
+      "id": "privacidade.telemetria",
+      "titulo": "Reduzir a telemetria ao mínimo",
+      "descricao": "Diminui os dados de diagnóstico enviados para a Microsoft ao nível mais baixo permitido.",
+      "saiba_mais": {
+        "o_que": "Define a política de telemetria para o nível Segurança/Básico.",
+        "como": "Grava AllowTelemetry nas políticas do Windows.",
+        "beneficio": "Menos coleta de dados em segundo plano.",
+        "risco": "No Windows Home o nível mínimo é 'Básico'; não desliga 100% por limitação do próprio Windows."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "telemetria",
+        "privacidade",
+        "diagnostico",
+        "coleta"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "nome": "AllowTelemetry",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "nome": "MaxTelemetryAllowed",
+          "valor": {
+            "tipo": "dword",
+            "dado": 1
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "privacidade.anuncios",
+      "titulo": "Desligar anúncios e sugestões",
+      "descricao": "Remove propagandas no menu Iniciar, na tela de bloqueio e sugestões do Windows.",
+      "saiba_mais": {
+        "o_que": "Desativa o conteúdo sugerido e o ID de publicidade.",
+        "como": "Ajusta chaves de 'Content Delivery Manager' e o AdvertisingInfo.",
+        "beneficio": "Menos distrações e indicações de apps.",
+        "risco": "Nenhum; só remove sugestões."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "anuncios",
+        "propaganda",
+        "sugestoes",
+        "ads"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "nome": "SubscribedContent-338388Enabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "nome": "SubscribedContent-338389Enabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "nome": "SystemPaneSuggestionsEnabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "nome": "Enabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "privacidade.bing",
+      "titulo": "Tirar a busca do Bing do menu Iniciar",
+      "descricao": "A busca do Iniciar deixa de mostrar resultados da web (Bing) e passa a buscar só no PC.",
+      "saiba_mais": {
+        "o_que": "Desativa os resultados da web na busca do Windows.",
+        "como": "Grava DisableSearchBoxSuggestions / BingSearchEnabled.",
+        "beneficio": "Busca mais rápida e focada nos seus arquivos.",
+        "risco": "Você deixa de ver respostas da web direto na busca."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "bing",
+        "busca",
+        "pesquisa",
+        "web",
+        "iniciar"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "nome": "DisableSearchBoxSuggestions",
+          "valor": {
+            "tipo": "dword",
+            "dado": 1
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "nome": "BingSearchEnabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "privacidade.copilot",
+      "titulo": "Desligar o Copilot",
+      "descricao": "Desativa o assistente Copilot do Windows 11.",
+      "saiba_mais": {
+        "o_que": "Liga a política que desativa o Windows Copilot.",
+        "como": "Grava TurnOffWindowsCopilot nas políticas (usuário e máquina).",
+        "beneficio": "Remove o botão e o atalho do Copilot.",
+        "risco": "Você não poderá usar o Copilot até reativar."
+      },
+      "risco": "amarelo",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "condicoes": [
+        "windows11"
+      ],
+      "busca": [
+        "copilot",
+        "ia",
+        "assistente"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "nome": "TurnOffWindowsCopilot",
+          "valor": {
+            "tipo": "dword",
+            "dado": 1
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot",
+          "nome": "TurnOffWindowsCopilot",
+          "valor": {
+            "tipo": "dword",
+            "dado": 1
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ]
+    },
+    {
+      "id": "privacidade.recall",
+      "titulo": "Desligar o Recall",
+      "descricao": "Desativa o recurso que tira 'fotos' periódicas da tela (Windows Recall).",
+      "saiba_mais": {
+        "o_que": "Liga a política DisableAIDataAnalysis.",
+        "como": "Grava a política de desativar o Recall.",
+        "beneficio": "O Windows para de capturar sua tela periodicamente.",
+        "risco": "Nenhum para quem não usa o Recall."
+      },
+      "risco": "amarelo",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "condicoes": [
+        "windows11"
+      ],
+      "busca": [
+        "recall",
+        "captura",
+        "tela",
+        "ia"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI",
+          "nome": "DisableAIDataAnalysis",
+          "valor": {
+            "tipo": "dword",
+            "dado": 1
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ]
+    },
+    {
+      "id": "privacidade.widgets",
+      "titulo": "Desligar os Widgets",
+      "descricao": "Remove o painel de Widgets da barra de tarefas.",
+      "saiba_mais": {
+        "o_que": "Desativa os Widgets e o botão da barra de tarefas.",
+        "como": "Grava a política de Widgets e o TaskbarDa do usuário.",
+        "beneficio": "Barra de tarefas mais limpa e menos consumo em segundo plano.",
+        "risco": "Você deixa de ver clima/notícias nos Widgets."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "condicoes": [
+        "windows11"
+      ],
+      "busca": [
+        "widgets",
+        "clima",
+        "noticias",
+        "barra"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+          "nome": "AllowNewsAndInterests",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "nome": "TaskbarDa",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ]
+    },
+    {
+      "id": "privacidade.edge_segundo_plano",
+      "titulo": "Impedir o Edge de ficar em segundo plano",
+      "descricao": "Faz o Microsoft Edge fechar de verdade, sem deixar processos rodando escondidos.",
+      "saiba_mais": {
+        "o_que": "Desativa 'Continuar executando apps em segundo plano' do Edge.",
+        "como": "Grava a política BackgroundModeEnabled=0 do Edge.",
+        "beneficio": "Menos uso de memória e CPU quando o Edge está fechado.",
+        "risco": "Notificações do Edge com o navegador fechado param de aparecer."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "edge",
+        "segundo plano",
+        "background",
+        "navegador"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "nome": "BackgroundModeEnabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Edge",
+          "nome": "StartupBoostEnabled",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "privacidade.entrega",
+      "titulo": "Reduzir a Otimização de Entrega",
+      "descricao": "Faz o Windows baixar atualizações só da Microsoft, sem compartilhar com outros PCs pela internet.",
+      "saiba_mais": {
+        "o_que": "Define o modo de download da Otimização de Entrega.",
+        "como": "Grava DODownloadMode=0 (somente HTTP, sem rede de pares pela internet).",
+        "beneficio": "Evita upload das suas atualizações para desconhecidos.",
+        "risco": "Em redes com muitos PCs, pode baixar um pouco mais lento."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "otimizacao de entrega",
+        "delivery",
+        "download",
+        "p2p"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+          "nome": "DODownloadMode",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "desempenho.agendamento_gpu",
+      "titulo": "Ligar o agendamento de GPU por hardware",
+      "descricao": "Ativa o HAGS (Hardware-Accelerated GPU Scheduling). Precisa reiniciar.",
+      "saiba_mais": {
+        "o_que": "Liga o agendamento de GPU acelerado por hardware.",
+        "como": "Grava HwSchMode=2.",
+        "beneficio": "Pode reduzir a latência em jogos em placas compatíveis.",
+        "risco": "Em alguns drivers antigos pode causar instabilidade; é reversível. Exige reiniciar."
+      },
+      "risco": "amarelo",
+      "aba": "desempenho",
+      "secao": "gpu",
+      "busca": [
+        "hags",
+        "agendamento",
+        "gpu",
+        "latencia",
+        "hardware"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GraphicsDrivers",
+          "nome": "HwSchMode",
+          "valor": {
+            "tipo": "dword",
+            "dado": 2
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "desempenho.jogos_prioridade",
+      "titulo": "Priorizar jogos nas tarefas do sistema",
+      "descricao": "Ajusta o agendador de multimídia para dar mais prioridade aos jogos.",
+      "saiba_mais": {
+        "o_que": "Ajusta as chaves de 'Games' no System Profile (MMCSS).",
+        "como": "Define GPU Priority, Priority e Scheduling Category para jogos.",
+        "beneficio": "O Windows trata os jogos como tarefa de alta prioridade.",
+        "risco": "Efeito pequeno em PCs modernos; totalmente reversível."
+      },
+      "risco": "verde",
+      "aba": "desempenho",
+      "secao": "jogos",
+      "busca": [
+        "jogos",
+        "prioridade",
+        "mmcss",
+        "games",
+        "multimidia"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "nome": "GPU Priority",
+          "valor": {
+            "tipo": "dword",
+            "dado": 8
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "nome": "Priority",
+          "valor": {
+            "tipo": "dword",
+            "dado": 6
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "nome": "Scheduling Category",
+          "valor": {
+            "tipo": "sz",
+            "dado": "High"
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "desempenho.aceleracao_mouse",
+      "titulo": "Desligar a aceleração do mouse",
+      "descricao": "Remove a 'aceleração' do ponteiro, deixando o movimento 1:1 (bom para jogos de mira).",
+      "saiba_mais": {
+        "o_que": "Desativa o 'Enhance pointer precision'.",
+        "como": "Zera MouseSpeed, MouseThreshold1 e MouseThreshold2.",
+        "beneficio": "Movimento do mouse mais previsível e consistente.",
+        "risco": "Quem gosta da aceleração pode estranhar; é reversível."
+      },
+      "risco": "verde",
+      "aba": "desempenho",
+      "secao": "mouse",
+      "busca": [
+        "mouse",
+        "aceleracao",
+        "ponteiro",
+        "mira",
+        "sensibilidade"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\Control Panel\\Mouse",
+          "nome": "MouseSpeed",
+          "valor": {
+            "tipo": "sz",
+            "dado": "0"
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\Control Panel\\Mouse",
+          "nome": "MouseThreshold1",
+          "valor": {
+            "tipo": "sz",
+            "dado": "0"
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\Control Panel\\Mouse",
+          "nome": "MouseThreshold2",
+          "valor": {
+            "tipo": "sz",
+            "dado": "0"
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "desempenho.efeitos_visuais",
+      "titulo": "Ajustar efeitos visuais para desempenho",
+      "descricao": "Reduz animações e efeitos do Windows para a interface responder mais rápido.",
+      "saiba_mais": {
+        "o_que": "Define os efeitos visuais para o modo 'melhor desempenho', mantendo bordas suaves.",
+        "como": "Ajusta VisualFXSetting e as animações da barra/janelas.",
+        "beneficio": "Janelas e menus abrem com menos atraso.",
+        "risco": "A interface fica com menos animações; é reversível."
+      },
+      "risco": "verde",
+      "aba": "desempenho",
+      "secao": "interface",
+      "busca": [
+        "efeitos",
+        "visuais",
+        "animacoes",
+        "desempenho",
+        "janelas"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+          "nome": "VisualFXSetting",
+          "valor": {
+            "tipo": "dword",
+            "dado": 2
+          }
+        },
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\Control Panel\\Desktop\\WindowMetrics",
+          "nome": "MinAnimate",
+          "valor": {
+            "tipo": "sz",
+            "dado": "0"
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "explorer.menu_classico",
+      "titulo": "Menu de contexto clássico (Windows 11)",
+      "descricao": "Traz de volta o menu do botão direito completo, sem o 'Mostrar mais opções'.",
+      "saiba_mais": {
+        "o_que": "Restaura o menu de contexto clássico do Windows 10 no Windows 11.",
+        "como": "Cria a chave InprocServer32 vazia do bloqueio do novo menu.",
+        "beneficio": "Acesso direto a todas as opções no botão direito.",
+        "risco": "Precisa reiniciar o Explorer; é reversível."
+      },
+      "risco": "verde",
+      "aba": "sistema",
+      "secao": "explorer",
+      "condicoes": [
+        "windows11"
+      ],
+      "busca": [
+        "menu",
+        "contexto",
+        "botao direito",
+        "classico"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32",
+          "nome": "",
+          "valor": {
+            "tipo": "sz",
+            "dado": ""
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ]
+    },
+    {
+      "id": "explorer.extensoes",
+      "titulo": "Mostrar extensões de arquivo",
+      "descricao": "Exibe a extensão dos arquivos (.exe, .pdf, .jpg) no Explorador.",
+      "saiba_mais": {
+        "o_que": "Desmarca 'Ocultar extensões de tipos de arquivo conhecidos'.",
+        "como": "Grava HideFileExt=0.",
+        "beneficio": "Ajuda a identificar arquivos e evitar '.pdf.exe' disfarçados.",
+        "risco": "Nenhum."
+      },
+      "risco": "verde",
+      "aba": "sistema",
+      "secao": "explorer",
+      "busca": [
+        "extensoes",
+        "arquivos",
+        "explorer",
+        "hidefileext"
+      ],
+      "acoes": [
+        {
+          "tipo": "registro",
+          "chave": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "nome": "HideFileExt",
+          "valor": {
+            "tipo": "dword",
+            "dado": 0
+          }
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "servicos.fax",
+      "titulo": "Serviço de Fax sob demanda",
+      "descricao": "Coloca o serviço de Fax em Manual (só liga se algum programa pedir).",
+      "saiba_mais": {
+        "o_que": "Muda o início do serviço Fax para Manual.",
+        "como": "Define o tipo de início como Manual (nunca Desativado).",
+        "beneficio": "Um serviço a menos iniciando sozinho.",
+        "risco": "Praticamente ninguém usa Fax hoje; reversível."
+      },
+      "risco": "verde",
+      "aba": "sistema",
+      "secao": "servicos",
+      "busca": [
+        "fax",
+        "servico",
+        "manual"
+      ],
+      "acoes": [
+        {
+          "tipo": "servico",
+          "nome": "Fax",
+          "inicio": "manual"
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "servicos.impressao",
+      "titulo": "Spooler de Impressão sob demanda",
+      "descricao": "Coloca o serviço de impressão em Manual. Use só se você NÃO imprime.",
+      "saiba_mais": {
+        "o_que": "Muda o Spooler de Impressão para Manual.",
+        "como": "Define o início como Manual.",
+        "beneficio": "Evita o serviço de impressão rodando sem necessidade.",
+        "risco": "Se você imprime, deixe como está — a impressão pode não funcionar."
+      },
+      "risco": "amarelo",
+      "aba": "sistema",
+      "secao": "servicos",
+      "modos": [
+        "avancado"
+      ],
+      "busca": [
+        "impressao",
+        "spooler",
+        "impressora"
+      ],
+      "acoes": [
+        {
+          "tipo": "servico",
+          "nome": "Spooler",
+          "inicio": "manual"
+        }
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "servicos.xbox",
+      "titulo": "Serviços do Xbox sob demanda",
+      "descricao": "Coloca os serviços do Xbox em Manual. Use se você não joga jogos da Microsoft Store/Game Pass.",
+      "saiba_mais": {
+        "o_que": "Muda serviços do Xbox para Manual.",
+        "como": "Define XboxGipSvc, XblAuthManager, XblGameSave e XboxNetApiSvc como Manual.",
+        "beneficio": "Menos serviços ligados para quem não usa o Xbox.",
+        "risco": "Jogos via Xbox/Game Pass e recursos sociais do Xbox podem precisar deles (voltam ao usar)."
+      },
+      "risco": "amarelo",
+      "aba": "sistema",
+      "secao": "servicos",
+      "modos": [
+        "avancado"
+      ],
+      "busca": [
+        "xbox",
+        "game pass",
+        "servico",
+        "jogos"
+      ],
+      "acoes": [
+        {
+          "tipo": "servico",
+          "nome": "XboxGipSvc",
+          "inicio": "manual"
+        },
+        {
+          "tipo": "servico",
+          "nome": "XblAuthManager",
+          "inicio": "manual"
+        },
+        {
+          "tipo": "servico",
+          "nome": "XblGameSave",
+          "inicio": "manual"
+        },
+        {
+          "tipo": "servico",
+          "nome": "XboxNetApiSvc",
+          "inicio": "manual"
+        }
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "servicos.registro_remoto",
+      "titulo": "Registro Remoto sob demanda",
+      "descricao": "Mantém o Registro Remoto em Manual (acesso remoto ao registro, raramente usado em casa).",
+      "saiba_mais": {
+        "o_que": "Garante o serviço Registro Remoto em Manual.",
+        "como": "Define RemoteRegistry como Manual.",
+        "beneficio": "Reduz a superfície de acesso remoto ao registro.",
+        "risco": "Nenhum para uso doméstico."
+      },
+      "risco": "verde",
+      "aba": "sistema",
+      "secao": "servicos",
+      "busca": [
+        "registro remoto",
+        "remoteregistry",
+        "remoto"
+      ],
+      "acoes": [
+        {
+          "tipo": "servico",
+          "nome": "RemoteRegistry",
+          "inicio": "manual"
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    },
+    {
+      "id": "privacidade.tarefas_telemetria",
+      "titulo": "Desativar tarefas de telemetria agendadas",
+      "descricao": "Desativa tarefas agendadas que coletam e enviam dados de uso.",
+      "saiba_mais": {
+        "o_que": "Desativa tarefas do 'Customer Experience Improvement Program' e afins.",
+        "como": "Desativa as tarefas no Agendador de Tarefas (reversível).",
+        "beneficio": "Menos coleta de dados em segundo plano.",
+        "risco": "Nenhum uso prático é perdido."
+      },
+      "risco": "verde",
+      "aba": "limpeza",
+      "secao": "privacidade",
+      "busca": [
+        "tarefas",
+        "telemetria",
+        "ceip",
+        "agendador",
+        "compatibilidade"
+      ],
+      "acoes": [
+        {
+          "tipo": "tarefa",
+          "caminho": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator",
+          "ativar": false
+        },
+        {
+          "tipo": "tarefa",
+          "caminho": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip",
+          "ativar": false
+        },
+        {
+          "tipo": "tarefa",
+          "caminho": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater",
+          "ativar": false
+        },
+        {
+          "tipo": "tarefa",
+          "caminho": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+          "ativar": false
+        }
+      ],
+      "modos": [
+        "basico",
+        "avancado"
+      ],
+      "condicoes": []
+    }
+  ]
+}

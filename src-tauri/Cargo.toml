@@ -1,0 +1,88 @@
+# Workspace do Xablau Optimizer: interface (este pacote) + núcleo + vigia + kit de emergência.
+[workspace]
+members = [".", "crates/core", "crates/vigia", "crates/restaurar"]
+resolver = "3"
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+authors = ["Xablau Studios (Luiz)"]
+license = "MIT"
+rust-version = "1.90"
+
+[workspace.dependencies]
+xablau-core = { path = "crates/core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std", "serde"] }
+# winreg e windows-sys só existem no Windows; os programas só rodam no Windows de qualquer forma.
+# Mantê-los como dependências de alvo deixa `cargo test` no host (ferramenta de CI) compilar o que é
+# lógica pura sem puxar código específico de Windows.
+winreg = "0.56"
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Globalization",
+  "Win32_Graphics_Gdi",
+  "Win32_Media",
+  "Win32_NetworkManagement_IpHelper",
+  "Win32_NetworkManagement_Ndis",
+  "Win32_Networking_WinSock",
+  "Win32_Security",
+  "Win32_Storage_FileSystem",
+  "Win32_System_Com",
+  "Win32_System_Console",
+  "Win32_System_Diagnostics_ToolHelp",
+  "Win32_System_IO",
+  "Win32_System_LibraryLoader",
+  "Win32_System_Memory",
+  "Win32_System_Performance",
+  "Win32_System_Power",
+  "Win32_System_ProcessStatus",
+  "Win32_System_Registry",
+  "Win32_System_RemoteDesktop",
+  "Win32_System_Services",
+  "Win32_System_SystemInformation",
+  "Win32_System_SystemServices",
+  "Win32_System_Threading",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_Shell",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+[package]
+name = "xablau-optimizer"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Xablau Optimizer — otimizador seguro e reversível para Windows 10 e 11"
+publish = false
+
+[build-dependencies]
+tauri-build = { version = "2.7.3", features = [] }
+sha2 = "0.10"
+
+[dependencies]
+xablau-core = { workspace = true }
+tauri = { version = "2.12.4", features = [] }
+tauri-plugin-updater = "2.14.0"
+tauri-plugin-dialog = "2.8.3"
+tauri-plugin-single-instance = "2.5.4"
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+winreg = { workspace = true }
+windows-sys = { workspace = true }
+sha2 = "0.10"
+base64 = "0.22"
+blake3 = "1.8"
+trash = "5.2"
+
+[profile.release]
+strip = true
+lto = "thin"
+opt-level = 3
+
+[profile.release.package.xablau-vigia]
+opt-level = "s"

@@ -1,0 +1,15 @@
+Componentes de terceiros usados pelo Xablau Optimizer
+
+- Tauri 2 e plugins (updater, dialog, single-instance) ........ MIT ou Apache-2.0
+- React, React DOM ............................................ MIT
+- Framer Motion ............................................... MIT
+- Lucide (ícones) ............................................. ISC
+- Tailwind CSS ................................................ MIT
+- Zustand ..................................................... MIT
+- Fonte Inter (Rasmus Andersson) .............................. SIL Open Font License 1.1
+- windows-sys (Microsoft), winreg, serde, serde_json, chrono .. MIT ou Apache-2.0
+- PresentMon 2.6.0 (Intel) .................................... MIT (texto completo em PresentMon-LICENSE.txt)
+- Microsoft Edge WebView2 Runtime (só na versão portátil) ..... termos de distribuição do WebView2
+
+Projetos usados como referência (nenhum código copiado): WinUtil (Chris Titus Tech, MIT),
+Win11Debloat (Raphire, MIT), Optimizer (hellzerg, GPL-3.0) e projetos da Builtbybel (MIT).

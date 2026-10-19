@@ -1,0 +1,120 @@
+# Compila o Xablau Optimizer e publica na aba "Releases" do GitHub.
+#
+# Como usar (passo a passo completo no README.md):
+#   • Criar a tag v1.0.0 (ou a versão atual) → compila e publica a Release com o instalador
+#     (.exe e .msi), a versão portátil (.zip) e o latest.json do atualizador automático.
+#   • Actions → "Compilar e publicar" → "Run workflow" → só compila (sem Release) e guarda
+#     os arquivos como artefatos, para testar.
+#
+# Segredos e variáveis (Settings → Secrets and variables → Actions):
+#   secrets.TAURI_SIGNING_PRIVATE_KEY           conteúdo do arquivo .key gerado pelo "tauri signer generate"
+#   secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD  senha escolhida ao gerar a chave
+#   vars.TAURI_UPDATER_PUBKEY                   conteúdo do arquivo .key.pub (chave pública)
+# Sem eles o programa compila normalmente, mas SEM atualização automática.
+
+name: Compilar e publicar
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: compilar-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: '0'
+  # PresentMon (Intel, MIT): versão fixa e SHA-256 conferido antes de embutir no instalador.
+  PRESENTMON_VERSAO: '2.6.0'
+  PRESENTMON_SHA256: 'b2a706bc6ad475749e3b7e3409263aa1e6906d45bdcf993f6dbc0f660188f1af'
+
+jobs:
+  windows:
+    name: Windows x64 (instalador + portátil)
+    # Imagem fixa para o WiX (MSI) funcionar sem surpresas. Se a 2022 for aposentada pelo
+    # GitHub, troque para windows-latest.
+    runs-on: windows-2022
+    timeout-minutes: 120
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v5
+
+      - name: Instalar o Node.js 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar o Rust (estável)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Reaproveitar compilações anteriores do Rust
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: 'src-tauri -> target'
+
+      - name: Instalar as dependências do JavaScript
+        run: npm ci
+
+      - name: Sincronizar a versão (package.json → tauri.conf.json e Cargo.toml)
+        run: node scripts/versao.mjs
+
+      - name: Conferir a versão com a tag
+        if: github.ref_type == 'tag'
+        run: node scripts/versao.mjs --conferir --tag "${{ github.ref_name }}"
+
+      - name: Configurar o atualizador automático
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_UPDATER_PUBKEY: ${{ vars.TAURI_UPDATER_PUBKEY }}
+        run: node scripts/preparar-ci.mjs
+
+      - name: Compilar o vigia e o kit de emergência e baixar o PresentMon
+        run: node scripts/preparar-binarios.mjs --release
+
+      - name: Preparar as notas da versão
+        id: notas
+        run: node scripts/versao.mjs --notas
+
+      - name: Compilar o Xablau Optimizer e publicar a Release
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+          releaseName: ${{ github.ref_type == 'tag' && format('Xablau Optimizer {0}', github.ref_name) || '' }}
+          releaseBody: ${{ steps.notas.outputs.notas }}
+          releaseDraft: false
+          prerelease: false
+          updaterJsonPreferNsis: true
+          uploadWorkflowArtifacts: ${{ github.ref_type != 'tag' }}
+          retryAttempts: 1
+
+      - name: Montar a versão portátil (.zip com WebView2 embutido)
+        shell: pwsh
+        run: ./scripts/montar-portatil.ps1
+
+      - name: Publicar a versão portátil e os SHA-256 na Release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $zip = (Get-ChildItem dist-portatil -Filter *.zip | Select-Object -First 1).FullName
+          gh release upload "$env:GITHUB_REF_NAME" "$zip" "dist-portatil/SHA256SUMS.txt" --clobber
+
+      - name: Guardar a versão portátil como artefato (execução manual)
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v5
+        with:
+          name: xablau-optimizer-portatil
+          path: dist-portatil/
+          retention-days: 14

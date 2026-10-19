@@ -1,0 +1,89 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Xablau Optimizer",
+  "mainBinaryName": "xablau-optimizer",
+  "version": "1.0.0",
+  "identifier": "com.xablaustudios.optimizer",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "principal",
+        "title": "Xablau Optimizer",
+        "width": 1180,
+        "height": 780,
+        "minWidth": 900,
+        "minHeight": 620,
+        "resizable": true,
+        "center": true,
+        "decorations": true,
+        "visible": true
+      }
+    ],
+    "withGlobalTauri": false,
+    "security": {
+      "csp": "default-src 'self' ipc: http://ipc.localhost; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis",
+      "msi"
+    ],
+    "createUpdaterArtifacts": true,
+    "publisher": "Xablau Studios",
+    "copyright": "© 2026 Xablau Studios — Luiz",
+    "category": "Utility",
+    "shortDescription": "Otimizador seguro e reversível para Windows 10 e 11",
+    "longDescription": "Xablau Optimizer, criado por Xablau Studios (Luiz): otimiza o Windows 10 e 11 para trabalho (CapCut, Chrome) e jogos, com ponto de restauração, backup granular e tudo reversível.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
+    "externalBin": [
+      "binaries/xablau-vigia",
+      "binaries/xablau-restaurar",
+      "binaries/presentmon"
+    ],
+    "resources": {
+      "licencas/*": "licencas/"
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "type": "embedBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "installMode": "perMachine",
+        "languages": [
+          "PortugueseBR"
+        ],
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico",
+        "installerHooks": "./windows/hooks.nsh"
+      },
+      "wix": {
+        "language": "pt-BR"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "COLE_AQUI_A_CHAVE_PUBLICA_OU_USE_A_VARIAVEL_TAURI_UPDATER_PUBKEY",
+      "endpoints": [
+        "https://github.com/SEU_USUARIO/SEU_REPOSITORIO/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

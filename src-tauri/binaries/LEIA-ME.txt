@@ -1,0 +1,8 @@
+Esta pasta recebe, durante a compilação, os executáveis auxiliares que vão junto da interface:
+
+  xablau-vigia-<alvo>.exe      (vigia em segundo plano)
+  xablau-restaurar-<alvo>.exe  (kit de emergência)
+  presentmon-<alvo>.exe        (PresentMon da Intel, baixado com SHA-256 conferido)
+
+Eles são gerados por "node scripts/preparar-binarios.mjs" (e pelo GitHub Actions). Por isso NÃO
+ficam no repositório — veja o .gitignore.

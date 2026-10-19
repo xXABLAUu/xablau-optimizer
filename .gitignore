@@ -1,0 +1,24 @@
+# Dependências e saídas de compilação
+node_modules/
+dist/
+dist-portatil/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/*.exe
+src-tauri/binaries/*.tmp
+
+# NUNCA suba chaves de assinatura para o repositório
+*.key
+*.key.pub
+*.pem
+.env
+.env.*
+
+# Arquivos do sistema/editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log

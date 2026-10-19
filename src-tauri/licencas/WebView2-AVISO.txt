@@ -1,0 +1,9 @@
+Microsoft Edge WebView2 Runtime
+Copyright (c) Microsoft Corporation.
+
+A versão portátil do Xablau Optimizer inclui o WebView2 Runtime da Microsoft (pasta WebView2Runtime),
+redistribuído sem modificações conforme os termos de distribuição do WebView2:
+https://developer.microsoft.com/microsoft-edge/webview2/
+
+Os instaladores (.exe e .msi) não incluem o runtime: eles usam o WebView2 já instalado no Windows
+e, se faltar, instalam a versão oficial pelo instalador da própria Microsoft.

@@ -1,4 +1,4 @@
-\xEF\xBB\xBF<#
+<#
   Monta a versão PORTÁTIL do Xablau Optimizer (.zip), com o WebView2 embutido (fixed runtime),
   para funcionar em qualquer Windows 10/11 — inclusive sem WebView2 instalado.
   Roda no GitHub Actions depois do "tauri build". Também gera o SHA256SUMS.txt.
